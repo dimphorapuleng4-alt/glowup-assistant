@@ -1,4 +1,4 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import {
   Brush,
   CalendarCheck,
@@ -12,11 +12,13 @@ import {
   Sparkles,
   Sun,
   Users,
+  LogOut,
 } from "lucide-react";
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { supabase } from "@/integrations/supabase/client";
 import { useTheme } from "@/lib/theme";
 import { cn } from "@/lib/utils";
 
@@ -94,8 +96,58 @@ function ThemeToggle() {
   );
 }
 
+function SignOutButton() {
+  const navigate = useNavigate();
+  return (
+    <Button
+      variant="outline"
+      size="icon"
+      className="rounded-full"
+      aria-label="Sign out"
+      onClick={async () => {
+        await supabase.auth.signOut();
+        navigate({ to: "/auth" });
+      }}
+    >
+      <LogOut className="h-4.5 w-4.5" aria-hidden="true" />
+    </Button>
+  );
+}
+
 export function AppShell({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const isAuthPage = pathname === "/auth";
+  const [status, setStatus] = useState<"loading" | "in" | "out">("loading");
+
+  useEffect(() => {
+    let active = true;
+    supabase.auth.getSession().then(({ data }) => {
+      if (active) setStatus(data.session ? "in" : "out");
+    });
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+      setStatus(session ? "in" : "out");
+    });
+    return () => {
+      active = false;
+      sub.subscription.unsubscribe();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (status === "out" && !isAuthPage) navigate({ to: "/auth" });
+  }, [status, isAuthPage, navigate]);
+
+  if (isAuthPage) return <>{children}</>;
+
+  if (status !== "in") {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-background">
+        <p className="text-sm text-muted-foreground">Loading your salon workspace…</p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -135,6 +187,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           </div>
           <div className="flex items-center gap-2">
             <ThemeToggle />
+            <SignOutButton />
             <Button asChild variant="default" className="hidden rounded-full sm:inline-flex">
               <Link to="/assistant">
                 <Sparkles className="h-4 w-4" aria-hidden="true" />
