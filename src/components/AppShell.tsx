@@ -187,6 +187,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           </div>
           <div className="flex items-center gap-2">
             <ThemeToggle />
+            <SignOutButton />
             <Button asChild variant="default" className="hidden rounded-full sm:inline-flex">
               <Link to="/assistant">
                 <Sparkles className="h-4 w-4" aria-hidden="true" />
