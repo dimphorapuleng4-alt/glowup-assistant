@@ -10,33 +10,141 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AssistantRouteImport } from './routes/assistant'
+import { Route as CustomersRouteImport } from './routes/customers'
+import { Route as EmailAssistantRouteImport } from './routes/email-assistant'
+import { Route as MeetingNotesRouteImport } from './routes/meeting-notes'
+import { Route as ResearchRouteImport } from './routes/research'
+import { Route as ServicesRouteImport } from './routes/services'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as TaskPlannerRouteImport } from './routes/task-planner'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AssistantRoute = AssistantRouteImport.update({
+  id: '/assistant',
+  path: '/assistant',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CustomersRoute = CustomersRouteImport.update({
+  id: '/customers',
+  path: '/customers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmailAssistantRoute = EmailAssistantRouteImport.update({
+  id: '/email-assistant',
+  path: '/email-assistant',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MeetingNotesRoute = MeetingNotesRouteImport.update({
+  id: '/meeting-notes',
+  path: '/meeting-notes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResearchRoute = ResearchRouteImport.update({
+  id: '/research',
+  path: '/research',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesRoute = ServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TaskPlannerRoute = TaskPlannerRouteImport.update({
+  id: '/task-planner',
+  path: '/task-planner',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/assistant': typeof AssistantRoute
+  '/customers': typeof CustomersRoute
+  '/email-assistant': typeof EmailAssistantRoute
+  '/meeting-notes': typeof MeetingNotesRoute
+  '/research': typeof ResearchRoute
+  '/services': typeof ServicesRoute
+  '/settings': typeof SettingsRoute
+  '/task-planner': typeof TaskPlannerRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/assistant': typeof AssistantRoute
+  '/customers': typeof CustomersRoute
+  '/email-assistant': typeof EmailAssistantRoute
+  '/meeting-notes': typeof MeetingNotesRoute
+  '/research': typeof ResearchRoute
+  '/services': typeof ServicesRoute
+  '/settings': typeof SettingsRoute
+  '/task-planner': typeof TaskPlannerRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/assistant': typeof AssistantRoute
+  '/customers': typeof CustomersRoute
+  '/email-assistant': typeof EmailAssistantRoute
+  '/meeting-notes': typeof MeetingNotesRoute
+  '/research': typeof ResearchRoute
+  '/services': typeof ServicesRoute
+  '/settings': typeof SettingsRoute
+  '/task-planner': typeof TaskPlannerRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/assistant'
+    | '/customers'
+    | '/email-assistant'
+    | '/meeting-notes'
+    | '/research'
+    | '/services'
+    | '/settings'
+    | '/task-planner'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/assistant'
+    | '/customers'
+    | '/email-assistant'
+    | '/meeting-notes'
+    | '/research'
+    | '/services'
+    | '/settings'
+    | '/task-planner'
+  id:
+    | '__root__'
+    | '/'
+    | '/assistant'
+    | '/customers'
+    | '/email-assistant'
+    | '/meeting-notes'
+    | '/research'
+    | '/services'
+    | '/settings'
+    | '/task-planner'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AssistantRoute: typeof AssistantRoute
+  CustomersRoute: typeof CustomersRoute
+  EmailAssistantRoute: typeof EmailAssistantRoute
+  MeetingNotesRoute: typeof MeetingNotesRoute
+  ResearchRoute: typeof ResearchRoute
+  ServicesRoute: typeof ServicesRoute
+  SettingsRoute: typeof SettingsRoute
+  TaskPlannerRoute: typeof TaskPlannerRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +156,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/assistant': {
+      id: '/assistant'
+      path: '/assistant'
+      fullPath: '/assistant'
+      preLoaderRoute: typeof AssistantRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/customers': {
+      id: '/customers'
+      path: '/customers'
+      fullPath: '/customers'
+      preLoaderRoute: typeof CustomersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/email-assistant': {
+      id: '/email-assistant'
+      path: '/email-assistant'
+      fullPath: '/email-assistant'
+      preLoaderRoute: typeof EmailAssistantRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/meeting-notes': {
+      id: '/meeting-notes'
+      path: '/meeting-notes'
+      fullPath: '/meeting-notes'
+      preLoaderRoute: typeof MeetingNotesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/research': {
+      id: '/research'
+      path: '/research'
+      fullPath: '/research'
+      preLoaderRoute: typeof ResearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/task-planner': {
+      id: '/task-planner'
+      path: '/task-planner'
+      fullPath: '/task-planner'
+      preLoaderRoute: typeof TaskPlannerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AssistantRoute: AssistantRoute,
+  CustomersRoute: CustomersRoute,
+  EmailAssistantRoute: EmailAssistantRoute,
+  MeetingNotesRoute: MeetingNotesRoute,
+  ResearchRoute: ResearchRoute,
+  ServicesRoute: ServicesRoute,
+  SettingsRoute: SettingsRoute,
+  TaskPlannerRoute: TaskPlannerRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
